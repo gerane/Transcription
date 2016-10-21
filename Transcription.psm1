@@ -80,7 +80,16 @@ function Enable-PSModuleLogging
     if(-not (Test-Path $basePath))  
     {  
         $null = New-Item $basePath –Force  
-    }  
- 
-    Set-ItemProperty $basePath -Name EnableModuleLogging -Value "1" 
+    }
+
+    Set-ItemProperty $basePath -Name EnableModuleLogging -Value "1"
+
+    $basePath = "HKLM:\Software\Policies\Microsoft\Windows\PowerShell\ModuleLogging\ModuleNames"
+    
+    if(-not (Test-Path $basePath))  
+    {  
+        $null = New-Item $basePath –Force
+    }
+    
+    Set-ItemProperty $basePath -Name '*' -Value '*'
 }
